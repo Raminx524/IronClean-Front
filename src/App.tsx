@@ -6,6 +6,7 @@ import CleanersPage from "./pages/CleanersPage";
 import Auth from "./pages/AuthPage";
 
 import CleanerDetailsPage from "./pages/CleanerDetailsPage";
+import Profile from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -17,8 +18,8 @@ function App() {
             <Route index element={<CleanersPage />} />
             <Route path=":id" element={<CleanerDetailsPage />} />
           </Route>
+          <Route path="/profile" element={<Profile />} />
         </Route>
-
         <Route path="/auth" element={<Auth />} />
       </Routes>
     </div>
