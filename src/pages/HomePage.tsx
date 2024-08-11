@@ -104,7 +104,7 @@ function HomePage() {
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.5 }}
-        className="py-8"
+        className="py-8 px-20"
       >
         <h2 className="text-3xl font-semibold mb-6">Our Top Cleaners</h2>
         {isLoading ? (
@@ -112,7 +112,7 @@ function HomePage() {
         ) : error ? (
           <p>Error loading cleaners: {error.message}</p>
         ) : (
-          <Carousel className="w-full max-w-xs mx-auto sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
+          <Carousel className=" min-w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
             <CarouselContent>
               {[...Array(6)].map((_, index) => (
                 <CarouselItem key={index}>

@@ -5,7 +5,7 @@ import Footer from "../Footer";
 
 function PageLayout() {
   return (
-    <div className="w-4/5 mx-auto min-h-screen">
+    <div className=" mx-auto min-h-screen">
       <Navbar />
       <div className="content py-20">
         <Outlet />
