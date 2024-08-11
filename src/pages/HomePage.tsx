@@ -8,6 +8,7 @@ import {
   FaUserFriends,
   FaShieldAlt,
   FaMoneyBillWave,
+  FaStar,
 } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -38,6 +39,22 @@ const fetchTopCleaners = async (): Promise<Cleaner[]> => {
   const response = await axios.get("http://localhost:3000/api/cleaners/top");
   console.log(response.data);
   return response.data;
+};
+
+const StarRating = ({ rating }: { rating: any }) => {
+  return (
+    <div className="flex">
+      {[...Array(5)].map((_, index) => (
+        <FaStar
+          key={index}
+          className={
+            index < Math.round(rating) ? "text-yellow-400" : "text-gray-300"
+          }
+          size={16}
+        />
+      ))}
+    </div>
+  );
 };
 
 function HomePage() {
@@ -93,9 +110,15 @@ function HomePage() {
           transition={{ delay: 0.4, duration: 0.5 }}
           className="flex-1 flex justify-center"
         >
-          <div className="w-64 h-64 bg-primary/10 rounded-full flex items-center justify-center">
-            <span className="text-lg text-primary">Cleaning Animation</span>
-          </div>
+          <div
+            className="w-96 h-96 bg-primary/10 rounded-full flex items-center justify-center bg-cover opacity-30"
+            style={{
+              backgroundImage:
+                "url(src/images/ezgif.com-video-to-gif-converter.gif)",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }}
+          ></div>
         </motion.div>
       </section>
 
@@ -112,7 +135,7 @@ function HomePage() {
         ) : error ? (
           <p>Error loading cleaners: {error.message}</p>
         ) : (
-          <Carousel className=" min-w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
+          <Carousel className="min-w-full sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
             <CarouselContent>
               {[...Array(6)].map((_, index) => (
                 <CarouselItem key={index}>
@@ -141,7 +164,12 @@ function HomePage() {
                       {topCleaners && topCleaners[index] ? (
                         <>
                           <p>Price: ${topCleaners[index].Price}/hour</p>
-                          <p>Rating: {topCleaners[index].avg_rating}/5</p>
+                          <div className="flex items-center gap-2">
+                            <span>Rating:</span>
+                            <StarRating
+                              rating={parseFloat(topCleaners[index].avg_rating)}
+                            />
+                          </div>
                         </>
                       ) : (
                         <p>Become one of our top cleaners!</p>
