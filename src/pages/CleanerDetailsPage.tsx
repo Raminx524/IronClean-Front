@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ICleaner } from "./CleanersPage";
 import axios from "axios";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ReservationsCalendar } from "@/components/Calendar/ReservationsCalendar";
 const CLEANER_URL = "http://localhost:3000/api/cleaners/";
 
 export interface IReview {
@@ -82,6 +83,7 @@ function CleanerDetailsPage() {
             ))}
           </ul>
         )}
+        <ReservationsCalendar />
       </div>
     </div>
   );
