@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export interface ICleaner {
@@ -15,6 +16,21 @@ export interface ICleaner {
   user_id: number;
   avg_rating: string;
 }
+const StarRating = ({ rating }: { rating: any }) => {
+  return (
+    <div className="flex">
+      {[...Array(5)].map((_, index) => (
+        <FaStar
+          key={index}
+          className={
+            index < Math.round(rating) ? "text-yellow-400" : "text-gray-300"
+          }
+          size={16}
+        />
+      ))}
+    </div>
+  );
+};
 
 async function fetchCleaners() {
   try {
@@ -45,7 +61,7 @@ function CleanersPage() {
           <li key={cleaner.ID} className="flex w-full justify-evenly">
             <p>{`${cleaner.First_name} ${cleaner.Last_name}`}</p>
             <p>{`$${cleaner.Price}/h`}</p>
-            <p>{cleaner.avg_rating}</p>
+            <StarRating rating={parseFloat(cleaner.avg_rating)} />
             <Link to={`/cleaners/${cleaner.ID}`}>See more</Link>
           </li>
         ))}

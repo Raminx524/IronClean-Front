@@ -4,11 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@uidotdev/usehooks";
 
 export interface User {
-  _id: string;
+  ID: string;
   password: string;
-  username: string;
-  email: string;
-  imgUrl: string;
+  Username: string;
+  Email: string;
+  avatar_img: string | null;
+  First_name: string | null;
+  Last_name: string | null;
+  Phone_number: string | null;
 }
 
 export interface UserToRegister {
