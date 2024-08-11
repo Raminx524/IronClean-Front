@@ -47,9 +47,9 @@ export default function Register() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <Tabs defaultValue="login" className="flex w-5/6">
-        <TabsList className="flex-1 flex flex-col h-full items-center self-center text-primary">
+    <div className="flex justify-center min-h-screen">
+      <Tabs defaultValue="register" className="flex w-5/6 ">
+        <TabsList className=" flex flex-1 flex-col h-full  text-primary bg-gradient-to-l from-primary">
           <div>
             <TabsContent
               value="login"
@@ -69,10 +69,13 @@ export default function Register() {
             <TabsTrigger value="register">Register</TabsTrigger>
           </div>
         </TabsList>
-        <TabsContent value="login" className="flex-1">
+        <TabsContent value="login" className=" flex-1 flex-grow items-center">
           Make changes to your account here.sa
         </TabsContent>
-        <TabsContent value="register" className="flex-1">
+        <TabsContent
+          value="register"
+          className="flex-1 flex-grow items-center self-center"
+        >
           <form onSubmit={handleRegister} className="">
             <Card>
               {/* <CardHeader>
