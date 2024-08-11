@@ -3,11 +3,9 @@ import HomePage from "./pages/HomePage";
 import PageLayout from "./components/ui/PageLayout";
 import CleanersPage from "./pages/CleanersPage";
 
-import Login from "./pages/LoginPage";
-import Register from "./pages/RegisterPage";
+import Auth from "./pages/AuthPage";
 
 import CleanerDetailsPage from "./pages/CleanerDetailsPage";
-
 
 function App() {
   return (
@@ -20,8 +18,8 @@ function App() {
             <Route path=":id" element={<CleanerDetailsPage />} />
           </Route>
         </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+
+        <Route path="/auth" element={<Auth />} />
       </Routes>
     </div>
   );

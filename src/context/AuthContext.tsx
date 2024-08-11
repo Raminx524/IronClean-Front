@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }: childrenPropsType) => {
   const [loggedInUser, setLoggedInUser] = useState<User | null | undefined>(
     undefined
   );
-  const [token, setToken] = useLocalStorage<string | null>("jwt-taskify", null);
+  const [token, setToken] = useLocalStorage<string | null>("jwt-token", null);
 
   const navigate = useNavigate();
 
@@ -51,7 +51,9 @@ export const AuthProvider = ({ children }: childrenPropsType) => {
 
     async function fetchUser() {
       try {
+        console.log("Fetching user", token);
         const response = await api.get("/user");
+
         setLoggedInUser(response.data);
       } catch (error: any) {
         if (error.response?.status === 401) {
@@ -72,12 +74,13 @@ export const AuthProvider = ({ children }: childrenPropsType) => {
   function logout() {
     setToken(null);
     setLoggedInUser(null);
-    navigate("/login");
+    navigate("/");
   }
 
   async function login(userData: UserCradantial) {
     try {
       const response = await api.post("/user/login", userData);
+
       setToken(response.data.token);
       navigate("/");
     } catch (error) {
