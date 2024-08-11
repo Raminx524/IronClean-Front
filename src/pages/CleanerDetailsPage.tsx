@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ReservationsCalendar } from "@/components/Calendar/ReservationsCalendar";
 import { FaStar } from "react-icons/fa";
 import {
   Dialog,
@@ -215,6 +216,7 @@ function CleanerDetailsPage() {
             ))}
           </ul>
         )}
+        <ReservationsCalendar />
       </div>
     </div>
   );
