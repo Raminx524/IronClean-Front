@@ -1,71 +1,79 @@
 import { Link } from "react-router-dom";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import {
+  FaFacebookF,
+  FaLinkedinIn,
+  FaPinterestP,
+  FaTwitter,
+} from "react-icons/fa";
 
 function Footer() {
   return (
-    <footer className="bg-muted text-white">
+    <footer className="bg-primary text-foreground">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Quick Links</h3>
-            <nav className="flex flex-col flex-wrap justify-between text-center h-20 space-y-2">
-              <Link
-                to="/"
-                className="hover:text-foreground transition-colors py-2"
+          <div className="space-y-4 flex flex-col justify-between">
+            <Link to="/" className="text-2xl font-bold text-primary-foreground">
+              IronClean
+            </Link>
+            <div className="f_widget social-widget pl_70 wow fadeInLeft ">
+              <h3 className="text-2xl font-semibold text-primary-foreground mb-4">
+                Team Solutions
+              </h3>
+              <div
+                className="flex gap-4
+              "
               >
-                Home
-              </Link>
-              <Link
-                to="/cleaners"
-                className="hover:text-foreground transition-colors"
-              >
-                Cleaners
-              </Link>
-              <Link
-                to="/userProfile"
-                className="hover:text-foreground transition-colors"
-              >
-                My Profile
-              </Link>
-              <Link
-                to="/about"
-                className="hover:text-foreground transition-colors"
-              >
-                About Us
-              </Link>
-              <Link
-                to="/#contact"
-                className="hover:text-foreground transition-colors"
-              >
-                Contact
-              </Link>
-            </nav>
+                <a href="#">
+                  {" "}
+                  <FaFacebookF size="20" />
+                </a>
+                <a href="#">
+                  <FaTwitter size="20" />
+                </a>
+                <a href="#">
+                  <FaLinkedinIn size="20" />
+                </a>
+                <a href="#">
+                  <FaPinterestP size="20" />
+                </a>
+              </div>
+            </div>
           </div>
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Newsletter</h3>
-            <p className="text-sm">
-              Stay updated with our latest news and offers.
-            </p>
-            <form className="flex flex-col sm:flex-row gap-2">
-              <Input
-                placeholder="Email@example.com"
-                type="email"
-                className=" bg-primary text-white border-gray-700 focus:border-blue-500 "
-              />
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
-                Subscribe
-              </Button>
-            </form>
-          </div>
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white">Contact Us</h3>
+
+          <div className="space-y-4 ">
+            <h3 className="text-2xl font-semibold text-primary-foreground ">
+              Contact Us
+            </h3>
             <p className="text-sm">123 Cleaning Street, Sparkle City, 12345</p>
             <p className="text-sm">Phone: (123) 456-7890</p>
             <p className="text-sm">Email: info@ironclean.com</p>
           </div>
+
+          <div className="space-y-4 flex flex-col justify-between">
+            <div>
+              <h3 className="text-2xl font-semibold text-primary-foreground mb-4">
+                Newsletter
+              </h3>
+              <p className="text-sm">
+                Stay updated with our latest news and offers.
+              </p>
+            </div>
+            <form className="flex flex-col sm:flex-row gap-2">
+              <Input
+                placeholder="Email@example.com"
+                type="email"
+                className=" bg-foreground text-primary-foreground placeholder:text-primary-foreground"
+              />
+              <Button className="bg-foreground font-semibold py-2 px-4 rounded">
+                Subscribe
+              </Button>
+            </form>
+          </div>
         </div>
-        <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center">
+
+        <div className="mt-12 pt-8 border-t border-foreground text-foreground flex flex-col sm:flex-row justify-between items-center">
           <p className="text-sm">&copy; 2024 IronClean. All rights reserved.</p>
           <div className="mt-4 sm:mt-0">
             <Link
