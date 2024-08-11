@@ -3,10 +3,22 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { loggedInUser, logout } = useAuth();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -29,6 +41,8 @@ function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [scrolled]);
+
+  console.log(loggedInUser);
 
   return (
     <nav
@@ -61,12 +75,36 @@ function Navbar() {
             >
               Contact Us
             </Link>
-            <Link to="/login">
-              <Button variant="outline">Login</Button>
-            </Link>
-            <Link to="/register">
-              <Button>Register</Button>
-            </Link>
+
+            {loggedInUser ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Avatar>
+                    <AvatarImage
+                      src={
+                        loggedInUser.avatar_img
+                          ? loggedInUser.avatar_img
+                          : "https://github.com/shadcn.png"
+                      }
+                    />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <Link to="/profile">
+                    <DropdownMenuItem>Profile</DropdownMenuItem>
+                  </Link>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <div>
+                <Link to="/auth">
+                  <Button variant="outline">Login</Button>
+                </Link>
+              </div>
+            )}
           </div>
 
           <div className="md:hidden">

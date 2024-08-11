@@ -52,7 +52,7 @@ export default function Auth() {
 
   return (
     <div className="flex justify-center min-h-screen">
-      <Tabs defaultValue="register" className="flex w-full  ">
+      <Tabs defaultValue="login" className="flex w-full  ">
         <TabsList className=" flex flex-1 flex-col min-h-full   bg-gradient-to-l from-primary bg-inherit gap-8 text-foreground p-20">
           <div>
             <TabsContent
