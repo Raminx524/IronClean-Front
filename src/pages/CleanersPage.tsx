@@ -19,7 +19,6 @@ export interface ICleaner {
 async function fetchCleaners() {
   try {
     const res = await axios.get("http://localhost:3000/api/cleaners");
-    console.log(res);
     return res.data;
   } catch (error) {
     console.log(error);
