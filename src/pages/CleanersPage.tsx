@@ -1,18 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export interface ICleaner {
   Email: string;
   First_name: string;
   ID: number;
   Last_name: string;
-  Password: string;
   Phone_number: string;
   Price: string;
   Summary: string;
   Username: string;
   role: string;
   user_id: number;
+  avg_rating: string;
 }
 
 async function fetchCleaners() {
@@ -42,7 +43,12 @@ function CleanersPage() {
       <h1>Our Cleaners</h1>
       <ul>
         {cleaners?.map((cleaner: ICleaner) => (
-          <li key={cleaner.ID}>{cleaner.Username}</li>
+          <li key={cleaner.ID} className="flex w-full justify-evenly">
+            <p>{`${cleaner.First_name} ${cleaner.Last_name}`}</p>
+            <p>{`$${cleaner.Price}/h`}</p>
+            <p>{cleaner.avg_rating}</p>
+            <Link to={`/cleaners/${cleaner.ID}`}>See more</Link>
+          </li>
         ))}
       </ul>
     </div>

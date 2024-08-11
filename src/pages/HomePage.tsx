@@ -21,7 +21,7 @@ function HomePage() {
       <section className="min-h-52 border">
         <p>Our Top Cleaners</p>
       </section>
-      <section className="w-1/2 space-y-4">
+      <section id="contact" className="w-1/2 space-y-4">
         <h2>Contact Us</h2>
         <form className="space-y-4">
           <div className="flex gap-4">
@@ -34,6 +34,7 @@ function HomePage() {
             className="h-20 w-full border rounded-md p-2"
           />
           <input type="text" />
+          <Button>Submit</Button>
         </form>
       </section>
     </div>
