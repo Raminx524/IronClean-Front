@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { FaStar } from "react-icons/fa";
+import axios from "axios";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ReservationsCalendar } from "@/components/Calendar/ReservationsCalendar";
+import { FaStar } from "react-icons/fa";
 import {
   Dialog,
   DialogTrigger,
@@ -23,7 +24,15 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import StarSlider from "@/components/StarSlider";
 import { AlertDialog, AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
-import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import {
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const CLEANER_URL = "/cleaners/";
 
@@ -102,16 +111,14 @@ function CleanerDetailsPage() {
   };
 
   const handleDelete = (reviewId: number) => {
-   
-      api
-        .delete(`${CLEANER_URL}${id}/review/${reviewId}`)
-        .then(() => {
-          queryClient.invalidateQueries([`cleaner-${id}-reviews`]);
-        })
-        .catch((error) => {
-          console.error("Failed to delete review:", error);
-        });
-    
+    api
+      .delete(`${CLEANER_URL}${id}/review/${reviewId}`)
+      .then(() => {
+        queryClient.invalidateQueries([`cleaner-${id}-reviews`]);
+      })
+      .catch((error) => {
+        console.error("Failed to delete review:", error);
+      });
   };
 
   if (cleanerError)
@@ -127,7 +134,7 @@ function CleanerDetailsPage() {
     typeof cleaner.avg_rating === "number"
       ? cleaner.avg_rating.toFixed(1)
       : "N/A";
-console.log(cleaner)
+  console.log(cleaner);
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -156,7 +163,7 @@ console.log(cleaner)
                   </Badge>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <StarRating  rating={cleaner.avg_rating} />
+                  <StarRating rating={cleaner.avg_rating} />
                   <span className="text-sm text-muted-foreground">
                     {cleaner.avgRating}
                   </span>
@@ -274,7 +281,7 @@ console.log(cleaner)
           </div>
           <DialogFooter>
             <Button onClick={handleSubmit} disabled={mutation.isLoading}>
-              {mutation.isLoading ? "Submitting..." : "Submit Review"}
+              Submit
             </Button>
           </DialogFooter>
         </DialogContent>

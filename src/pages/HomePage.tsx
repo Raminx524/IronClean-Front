@@ -27,6 +27,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+import AnchorLink from "react-anchor-link-smooth-scroll";
+
 interface Cleaner {
   id: number;
   First_name: string;
@@ -80,6 +82,13 @@ function HomePage() {
 
   return (
     <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+    >
+      {/* Hero section */}
       <section
         className="flex flex-col md:flex-row items-center bg-primary bg-opacity-50 px-5 gap-8 text-primary-foreground"
         style={{
@@ -114,7 +123,7 @@ function HomePage() {
           initial={{ x: 50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="flex-1 flex justify-center"
+          className="flex-1 flex justify-end"
         >
           <div className="w-96 h-96   flex items-center justify-center bg-cover "></div>
         </motion.div>
