@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "@uidotdev/usehooks";
 
 export interface User {
-  ID: string;
+  ID: number;
   password: string;
   Username: string;
   Email: string;
