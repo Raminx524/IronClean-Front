@@ -130,7 +130,7 @@ function CleanersPage() {
       </CardContent>
       <CardFooter className={viewMode === "row" ? "flex-shrink-0 w-1/4" : ""}>
         <Button asChild className="w-full mt-4">
-          <Link to={`/cleaner/${cleaner.ID}`}>View Profile</Link>
+          <Link to={`/cleaners/${cleaner.ID}`}>View Profile</Link>
         </Button>
       </CardFooter>
     </Card>
