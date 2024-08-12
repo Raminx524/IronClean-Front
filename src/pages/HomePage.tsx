@@ -225,6 +225,7 @@ function HomePage() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.5 }}
           className=" mx-auto"
+          id="contact"
         >
           <h2 className="text-3xl font-semibold mb-6">Contact Us</h2>
           <form className="space-y-6">

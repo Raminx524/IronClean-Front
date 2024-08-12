@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { LucideDot, Menu, X } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { MdOutlineMessage } from "react-icons/md";
 
 import {
   DropdownMenu,
@@ -16,11 +17,23 @@ import {
 } from "@/components/ui/dropdown-menu";
 import AnchorLink from "react-anchor-link-smooth-scroll";
 import { ModeToggle } from "./DarkMode";
+import { Separator } from "./ui/separator";
+import api from "@/services/api.service";
+
+interface Notification {
+  id: number;
+  is_seen: boolean;
+  content: string;
+}
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { loggedInUser, logout } = useAuth();
+  const [notifications, setNotifications] = useState<Notification[] | null>(
+    null
+  );
+
   const navigate = useNavigate();
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -29,6 +42,14 @@ function Navbar() {
     open: { opacity: 1, y: 0 },
     closed: { opacity: 0, y: "-100%" },
   };
+
+  useEffect(() => {
+    async function fetchNotification() {
+      const response = await api.get("/notification");
+      setNotifications(response.data);
+    }
+    fetchNotification();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,7 +98,46 @@ function Navbar() {
               Contact Us
             </AnchorLink>
             <ModeToggle></ModeToggle>
+            {loggedInUser ? (
+              <div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <Avatar>
+                      <AvatarFallback className="bg-primary-foreground border-primary border-2">
+                        <MdOutlineMessage />
+                      </AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="max-w-72">
+                    <div>
+                      {notifications?.map((notification) => {
+                        return (
+                          <div key={notification.id} className="p-2 ">
+                            <div className="flex">
+                              <div>{notification.content}</div>
+                              {!notification.is_seen ? (
+                                <div>
+                                  <LucideDot color="#f15" />
+                                </div>
+                              ) : (
+                                ""
+                              )}
+                            </div>
+                            <Separator />
+                          </div>
+                        );
+                      })}
 
+                      <Button className="w-full">
+                        Clear All Notifications
+                      </Button>
+                    </div>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            ) : (
+              ""
+            )}
             {loggedInUser ? (
               <DropdownMenu>
                 <DropdownMenuTrigger>
@@ -158,9 +218,9 @@ function Navbar() {
                     to="/"
                     onClick={() => {
                       logout();
-                      
+
                       setIsOpen(false);
-                     }}
+                    }}
                     className="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent"
                   >
                     Logout
