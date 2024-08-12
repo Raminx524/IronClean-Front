@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
@@ -26,8 +25,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-
-import AnchorLink from "react-anchor-link-smooth-scroll";
 
 interface Cleaner {
   id: number;
