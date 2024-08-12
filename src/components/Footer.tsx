@@ -22,7 +22,7 @@ function Footer() {
                 Team Solutions
               </h3>
               <div
-                className="flex gap-4
+                className="flex gap-4 text-secondary
               "
               >
                 <a href="#">
@@ -46,17 +46,17 @@ function Footer() {
             <h3 className="text-2xl font-semibold text-primary-foreground ">
               Contact Us
             </h3>
-            <p className="text-sm">123 Cleaning Street, Sparkle City, 12345</p>
-            <p className="text-sm">Phone: (123) 456-7890</p>
-            <p className="text-sm">Email: info@ironclean.com</p>
+            <p className="text-sm text-secondary">123 Cleaning Street, Sparkle City, 12345</p>
+            <p className="text-sm text-secondary">Phone: (123) 456-7890</p>
+            <p className="text-sm text-secondary">Email: info@ironclean.com</p>
           </div>
 
           <div className="space-y-4 flex flex-col justify-between">
             <div>
-              <h3 className="text-2xl font-semibold text-primary-foreground mb-4">
+              <h3 className="text-2xl font-semibold text-primary-foreground mb-4 text-acsent-foreground">
                 Newsletter
               </h3>
-              <p className="text-sm">
+              <p className="text-sm text-secondary">
                 Stay updated with our latest news and offers.
               </p>
             </div>
@@ -74,17 +74,17 @@ function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-foreground text-foreground flex flex-col sm:flex-row justify-between items-center">
-          <p className="text-sm">&copy; 2024 IronClean. All rights reserved.</p>
+          <p className="text-sm text-secondary">&copy; 2024 IronClean. All rights reserved.</p>
           <div className="mt-4 sm:mt-0">
             <Link
               to="/privacy"
-              className="text-sm hover:text-white transition-colors mr-4"
+              className="text-sm text-secondary hover:text-white transition-colors mr-4"
             >
               Privacy Policy
             </Link>
             <Link
               to="/terms"
-              className="text-sm hover:text-white transition-colors"
+              className="text-sm text-secondary hover:text-white transition-colors"
             >
               Terms of Service
             </Link>

@@ -13,7 +13,7 @@ const StarSlider = ({ rating, setRating }: StarSliderProps) => {
   return (
     <div className="flex size-20">
       {[...Array(5)].map((_, index) => (
-          <FaStar
+        <FaStar
           key={index}
           onClick={() => handleClick(index)}
           className={
@@ -21,7 +21,7 @@ const StarSlider = ({ rating, setRating }: StarSliderProps) => {
               ? "text-yellow-400 cursor-pointer"
               : "text-gray-300 cursor-pointer"
           }
-          size={20} // Adjust the size of the stars if needed
+          size={30} // Adjust the size of the stars if needed
         />
       ))}
     </div>

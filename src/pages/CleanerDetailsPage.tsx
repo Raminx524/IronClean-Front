@@ -1,20 +1,17 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import  { useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ReservationsCalendar } from "@/components/Calendar/ReservationsCalendar";
-import { FaStar } from "react-icons/fa";
+import { FaStar, FaWhatsapp } from "react-icons/fa";
 import {
   Dialog,
-  DialogTrigger,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useAuth } from "@/context/AuthContext";
 import api from "@/services/api.service";
@@ -23,16 +20,6 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import StarSlider from "@/components/StarSlider";
-import { AlertDialog, AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
-import {
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 
 const CLEANER_URL = "/cleaners/";
 
@@ -68,6 +55,7 @@ function CleanerDetailsPage() {
   const [rating, setRating] = useState<number>(0);
   const [text, setText] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const { loggedInUser } = useAuth();
 
@@ -156,7 +144,12 @@ function CleanerDetailsPage() {
                   <p className="text-sm text-muted-foreground">
                     {cleaner.Summary}
                   </p>
-                  <p className="text-sm">{cleaner.Phone_number}</p>
+                  <div className=" flex justify-center gap-2">
+                    <p className="text-sm">{cleaner.Phone_number}</p>
+                    <Link to={`https://wa.me/${cleaner?.Phone_number}`}>
+                      <FaWhatsapp></FaWhatsapp>
+                    </Link>
+                  </div>
                   <p className="text-sm">{cleaner.Email}</p>
                   <Badge variant="secondary" className="mt-2">
                     ${cleaner.Price}/hour
@@ -254,7 +247,7 @@ function CleanerDetailsPage() {
             <DialogTitle>Add a Review</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
-            <div>
+            <div className=" h-10">
               <label
                 htmlFor="rating"
                 className="block text-sm font-medium text-gray-700"
