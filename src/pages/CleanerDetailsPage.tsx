@@ -24,6 +24,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import StarSlider from "@/components/StarSlider";
+import { AlertDialog, AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
+import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 
 const CLEANER_URL = "/cleaners/";
 
@@ -102,7 +105,7 @@ function CleanerDetailsPage() {
   };
 
   const handleDelete = (reviewId: number) => {
-    if (confirm("Are you sure you want to delete this review?")) {
+   
       api
         .delete(`${CLEANER_URL}${id}/review/${reviewId}`)
         .then(() => {
@@ -111,7 +114,7 @@ function CleanerDetailsPage() {
         .catch((error) => {
           console.error("Failed to delete review:", error);
         });
-    }
+    
   };
 
   if (cleanerError)
@@ -127,7 +130,7 @@ function CleanerDetailsPage() {
     typeof cleaner.avg_rating === "number"
       ? cleaner.avg_rating.toFixed(1)
       : "N/A";
-
+console.log(cleaner)
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -156,9 +159,9 @@ function CleanerDetailsPage() {
                   </Badge>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <StarRating rating={cleaner.avg_rating} />
+                  <StarRating  rating={cleaner.avg_rating} />
                   <span className="text-sm text-muted-foreground">
-                    ({avgRating})
+                    {cleaner.avgRating}
                   </span>
                 </div>
                 <Button onClick={() => setIsOpen(true)} className="w-full">
@@ -254,15 +257,7 @@ function CleanerDetailsPage() {
               >
                 Rating
               </label>
-              <Input
-                id="rating"
-                type="number"
-                placeholder="Rating (1-5)"
-                value={rating}
-                onChange={(e) => setRating(Number(e.target.value))}
-                max={5}
-                min={1}
-              />
+              <StarSlider rating={rating} setRating={setRating} />
             </div>
             <div>
               <label

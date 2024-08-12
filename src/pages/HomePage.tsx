@@ -88,7 +88,14 @@ function HomePage() {
       className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
     >
       {/* Hero section */}
-      <section className="flex flex-col md:flex-row items-center gap-8">
+      <section
+        className="flex flex-col md:flex-row items-center gap-8"
+        style={{
+          backgroundImage: "url(src/images/Untitleds.gif)",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
         <motion.div
           initial={{ x: -50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -112,15 +119,7 @@ function HomePage() {
           transition={{ delay: 0.4, duration: 0.5 }}
           className="flex-1 flex justify-end"
         >
-          <div
-            className="w-96 h-96 bg-primary/10 rounded-full flex items-center justify-center bg-cover opacity-30"
-            style={{
-              backgroundImage:
-                "url(src/images/ezgif.com-video-to-gif-converter.gif)",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}
-          ></div>
+          <div className="w-96 h-96   flex items-center justify-center bg-cover "></div>
         </motion.div>
       </section>
 
