@@ -27,6 +27,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
+import AnchorLink from "react-anchor-link-smooth-scroll";
+
 interface Cleaner {
   id: number;
   First_name: string;
@@ -83,7 +85,7 @@ function HomePage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="space-y-12 py-10 px-4 md:px-6 lg:px-8"
+      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
     >
       {/* Hero section */}
       <section className="flex flex-col md:flex-row items-center gap-8">
@@ -108,7 +110,7 @@ function HomePage() {
           initial={{ x: 50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="flex-1 flex justify-center"
+          className="flex-1 flex justify-end"
         >
           <div
             className="w-96 h-96 bg-primary/10 rounded-full flex items-center justify-center bg-cover opacity-30"
@@ -127,7 +129,7 @@ function HomePage() {
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.6, duration: 0.5 }}
-        className="py-8 px-20"
+        className="py-8 "
       >
         <h2 className="text-3xl font-semibold mb-6">Our Top Cleaners</h2>
         {isLoading ? (
@@ -191,7 +193,7 @@ function HomePage() {
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
         viewport={{ once: true }}
-        className="py-8"
+        className="py-8 mb-8"
       >
         <h2 className="text-3xl font-semibold mb-6 text-center">
           Why Choose Us
@@ -204,7 +206,7 @@ function HomePage() {
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="flex flex-col items-center text-center p-4 bg-primary/5 rounded-lg"
+              className="flex flex-col items-center text-center p-4 py-8 bg-primary/30 rounded-lg"
             >
               <reason.icon className="text-4xl text-primary mb-2" />
               <p className="text-lg">{reason.text}</p>
@@ -218,19 +220,24 @@ function HomePage() {
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.8, duration: 0.5 }}
-        className="max-w-2xl mx-auto"
+        className=" mx-auto"
+        id="contact"
       >
         <h2 className="text-3xl font-semibold mb-6">Contact Us</h2>
         <form className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Input id="username" placeholder="Username" />
-            <Input id="email" type="email" placeholder="Email@Example.com" />
+          <div className="flex gap-4">
+            <div className="flex flex-col justify-between basis-1/3  gap-4">
+              <Input id="username" placeholder="Username" />
+              <Input id="email" type="email" placeholder="Email@Example.com" />
+            </div>
+            <div className=" basis-2/3">
+              <Textarea
+                id="userMsg"
+                placeholder="What's on your mind?"
+                className="h-full"
+              />
+            </div>
           </div>
-          <Textarea
-            id="userMsg"
-            placeholder="What's on your mind?"
-            className="h-32"
-          />
           <Button type="submit" className="w-full">
             Send Message
           </Button>

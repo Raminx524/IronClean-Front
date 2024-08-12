@@ -7,6 +7,7 @@ import Auth from "./pages/AuthPage";
 
 import CleanerDetailsPage from "./pages/CleanerDetailsPage";
 import Profile from "./pages/ProfilePage";
+import AboutPage from "./pages/About";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path=":id" element={<CleanerDetailsPage />} />
           </Route>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/about" element={<AboutPage />} />
         </Route>
         <Route path="/auth" element={<Auth />} />
       </Routes>

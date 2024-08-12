@@ -14,6 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import AnchorLink from "react-anchor-link-smooth-scroll";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -69,12 +70,17 @@ function Navbar() {
             >
               About Us
             </Link>
-            <Link
+
+            <AnchorLink href="#contact" offset={90}>
+              Contact Us
+            </AnchorLink>
+
+            {/* <Link
               to="/#contact"
               className="text-muted-foreground hover:text-foreground"
             >
               Contact Us
-            </Link>
+            </Link> */}
 
             {loggedInUser ? (
               <DropdownMenu>

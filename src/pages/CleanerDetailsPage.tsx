@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ReservationsCalendar } from "@/components/Calendar/ReservationsCalendar";
 import { FaStar } from "react-icons/fa";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ReservationsCalendar } from "@/components/Calendar/ReservationsCalendar";
@@ -276,14 +279,49 @@ function CleanerDetailsPage() {
                 rows={4}
               />
             </div>
-          </div>
-          <DialogFooter>
-            <Button onClick={handleSubmit} disabled={mutation.isLoading}>
-              {mutation.isLoading ? "Submitting..." : "Submit Review"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+
+            <DialogFooter>
+              <Button onClick={handleSubmit} disabled={mutation.isLoading}>
+                Submit
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
+      <div>
+        <h2>Reviews</h2>
+        {isReviewsLoading ? (
+          <p>Loading reviews...</p>
+        ) : reviewsError ? (
+          <p>Failed to load reviews</p>
+        ) : (
+          <ul>
+            {reviews.map((review: IReview) => (
+              <li key={review.ID} className="flex gap-6">
+                <Avatar>
+                  <AvatarImage src={review.avatar_img} alt={review.Username} />
+                  <AvatarFallback>{review.Username[0]}</AvatarFallback>
+                </Avatar>
+                <p>{review.Username}</p>
+                <StarRating rating={review.Rating} />
+                <p>{review.Text}</p>
+                {loggedInUser?.ID === review.Poster_ID ? (
+                  <Button
+                    onClick={() => {
+                      handleDelete(review.ID);
+                    }}
+                  >
+                    Delete
+                  </Button>
+                ) : (
+                  ""
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+        <ReservationsCalendar />
+      </div>
     </div>
   );
 }
