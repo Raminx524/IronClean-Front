@@ -1,20 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { fetchReservations } from "./ReservationsCalendar";
+import api from "@/services/api.service";
+const RESERVATIONS_URL = "/cleaners/{id}/reservations";
 
 export interface IReservation {
   Start_time: string;
   End_time: string;
 }
 
-function calculateAvailableTimeSlots(reservations: IReservation[]) {
+function formatDateToYYYYMMDD(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-based, so add 1
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+function calculateAvailableTimeSlots(reservations: IReservation[] = []) {
   const allSlots = generateTimeSlots("08:00", "20:00", 60); // Generates hourly slots between 8 AM and 8 PM
   const reservedSlots = reservations.map((r) => ({
     start: r.Start_time,
     end: r.End_time,
   }));
+  console.log({ allSlots });
+  console.log({ reservedSlots });
 
-  // Filter out reserved slots
   return allSlots.filter((slot) => !isOverlapping(slot, reservedSlots));
 }
 
@@ -83,27 +94,58 @@ export function AvailableTimeSlots({
 
   const { data: reservations, isLoading: reservationsLoading } = useQuery({
     queryKey: [`cleaner${cleanerId}-reservations`, date],
-    queryFn: () =>
-      fetchReservations(cleanerId, date.toISOString().split("T")[0]),
+    queryFn: () => fetchReservations(cleanerId, formatDateToYYYYMMDD(date)),
   });
 
   if (reservationsLoading) return <p>Loading available time slots...</p>;
 
   const availableTimeSlots = calculateAvailableTimeSlots(reservations);
 
+  async function bookAppointment(
+    cleanerId: number,
+    date: Date,
+    selectedTime: string | null
+  ) {
+    if (!selectedTime) return; // Ensure selectedTime is not null before proceeding
+    console.log(date);
+
+    const formattedDate = formatDateToYYYYMMDD(date);
+    const [start_time, end_time] = selectedTime.split(" - ");
+    try {
+      console.log(start_time, end_time);
+
+      const res = await api.post(
+        RESERVATIONS_URL.replace("{id}", cleanerId.toString()),
+        {
+          start_time,
+          end_time,
+          date: formattedDate,
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div>
       <h3>Select an Available Time</h3>
-      {availableTimeSlots.map((time) => (
-        <button key={time} onClick={() => setSelectedTime(time)}>
-          {time}
-        </button>
-      ))}
-      {/* {selectedTime && (
+      <div className="flex flex-wrap gap-4">
+        {availableTimeSlots.map((time) => (
+          <button
+            key={time}
+            onClick={() => setSelectedTime(time)}
+            className={`${time === selectedTime ? "bg-primary" : ""}`}
+          >
+            {time}
+          </button>
+        ))}
+      </div>
+      {selectedTime && (
         <button onClick={() => bookAppointment(cleanerId, date, selectedTime)}>
           Confirm Appointment
         </button>
-      )} */}
+      )}
     </div>
   );
 }
