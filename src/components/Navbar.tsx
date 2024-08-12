@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
@@ -15,11 +15,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import { ModeToggle } from "./DarkMode";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { loggedInUser, logout } = useAuth();
+  const navigate = useNavigate();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -74,13 +76,7 @@ function Navbar() {
             <AnchorLink href="#contact" offset={90}>
               Contact Us
             </AnchorLink>
-
-            {/* <Link
-              to="/#contact"
-              className="text-muted-foreground hover:text-foreground"
-            >
-              Contact Us
-            </Link> */}
+            <ModeToggle></ModeToggle>
 
             {loggedInUser ? (
               <DropdownMenu>
@@ -150,18 +146,35 @@ function Navbar() {
               >
                 Contact Us
               </Link>
-              <Link
-                to="/login"
-                className="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent"
-              >
-                Login
-              </Link>
-              <Link
-                to="/register"
-                className="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent"
-              >
-                Register
-              </Link>
+              {loggedInUser ? (
+                <>
+                  <Link
+                    to="/profile"
+                    className="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent"
+                  >
+                    Profile
+                  </Link>
+                  <Link
+                    onClick={() => {
+                      logout();
+                      navigate('/');
+                      setIsOpen(false);
+                     }}
+                    className="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent"
+                  >
+                    Logout
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/auth"
+                    className="block px-3 py-2 rounded-md text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent"
+                  >
+                    Login
+                  </Link>
+                </>
+              )}
             </div>
           </motion.div>
         )}
