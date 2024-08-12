@@ -5,8 +5,6 @@ import axios from "axios";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ReservationsCalendar } from "@/components/Calendar/ReservationsCalendar";
 import { FaStar } from "react-icons/fa";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ReservationsCalendar } from "@/components/Calendar/ReservationsCalendar";
 import {
   Dialog,
   DialogTrigger,
@@ -26,7 +24,15 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import StarSlider from "@/components/StarSlider";
 import { AlertDialog, AlertDialogTrigger } from "@radix-ui/react-alert-dialog";
-import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import {
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const CLEANER_URL = "/cleaners/";
 
@@ -105,16 +111,14 @@ function CleanerDetailsPage() {
   };
 
   const handleDelete = (reviewId: number) => {
-   
-      api
-        .delete(`${CLEANER_URL}${id}/review/${reviewId}`)
-        .then(() => {
-          queryClient.invalidateQueries([`cleaner-${id}-reviews`]);
-        })
-        .catch((error) => {
-          console.error("Failed to delete review:", error);
-        });
-    
+    api
+      .delete(`${CLEANER_URL}${id}/review/${reviewId}`)
+      .then(() => {
+        queryClient.invalidateQueries([`cleaner-${id}-reviews`]);
+      })
+      .catch((error) => {
+        console.error("Failed to delete review:", error);
+      });
   };
 
   if (cleanerError)
@@ -130,7 +134,7 @@ function CleanerDetailsPage() {
     typeof cleaner.avg_rating === "number"
       ? cleaner.avg_rating.toFixed(1)
       : "N/A";
-console.log(cleaner)
+  console.log(cleaner);
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -159,7 +163,7 @@ console.log(cleaner)
                   </Badge>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <StarRating  rating={cleaner.avg_rating} />
+                  <StarRating rating={cleaner.avg_rating} />
                   <span className="text-sm text-muted-foreground">
                     {cleaner.avgRating}
                   </span>
@@ -274,49 +278,14 @@ console.log(cleaner)
                 rows={4}
               />
             </div>
-
-            <DialogFooter>
-              <Button onClick={handleSubmit} disabled={mutation.isLoading}>
-                Submit
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      </div>
-      <div>
-        <h2>Reviews</h2>
-        {isReviewsLoading ? (
-          <p>Loading reviews...</p>
-        ) : reviewsError ? (
-          <p>Failed to load reviews</p>
-        ) : (
-          <ul>
-            {reviews.map((review: IReview) => (
-              <li key={review.ID} className="flex gap-6">
-                <Avatar>
-                  <AvatarImage src={review.avatar_img} alt={review.Username} />
-                  <AvatarFallback>{review.Username[0]}</AvatarFallback>
-                </Avatar>
-                <p>{review.Username}</p>
-                <StarRating rating={review.Rating} />
-                <p>{review.Text}</p>
-                {loggedInUser?.ID === review.Poster_ID ? (
-                  <Button
-                    onClick={() => {
-                      handleDelete(review.ID);
-                    }}
-                  >
-                    Delete
-                  </Button>
-                ) : (
-                  ""
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
-        <ReservationsCalendar />
-      </div>
+          </div>
+          <DialogFooter>
+            <Button onClick={handleSubmit} disabled={mutation.isLoading}>
+              Submit
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
